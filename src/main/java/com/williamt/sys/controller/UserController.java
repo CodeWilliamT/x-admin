@@ -6,7 +6,6 @@ import com.williamt.sys.entity.User;
 import com.williamt.sys.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.stereotype.Controller;
 
 import java.util.List;
 import java.util.Map;
@@ -33,6 +32,9 @@ public class UserController {
     @PostMapping("/login")
     public Result<Map<String,Object>> login(@RequestBody User user){
         Map<String,Object> data =userService.login(user);
-        return Result.success();
+        if(data!=null){
+            return Result.success(data);
+        }
+        return Result.fail(20002,"用户名或密码错误");
     }
 }

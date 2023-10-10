@@ -10,6 +10,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -43,6 +44,23 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
             //返回数据
             Map<String,Object> data =new HashMap<>();
             data.put("token",key);
+            return data;
+        }
+        return null;
+    }
+
+    @Override
+    public Map<String, Object> getUserInfo(String token) {
+        // 从redis查询token
+        Object obj = redisTemplate.opsForValue().get(token);
+        // 反序列化
+        User user = JSON.parseObject(JSON.toJSONString(obj),User.class);
+        if(user != null){
+            Map<String, Object> data =  new HashMap<>();
+            data.put("name",user.getUsername());
+            data.put("avatar",user.getAvatar());
+            List<String> roleList = this.getBaseMapper().getRoleNamesByUserId(user.getId());
+            data.put("roles", roleList);
             return data;
         }
         return null;

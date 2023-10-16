@@ -1,10 +1,11 @@
 package com.williamt.sys.service.impl;
 
+import com.alibaba.fastjson2.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.williamt.sys.entity.User;
 import com.williamt.sys.mapper.UserMapper;
 import com.williamt.sys.service.IUserService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -59,7 +60,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
             Map<String, Object> data =  new HashMap<>();
             data.put("name",user.getUsername());
             data.put("avatar",user.getAvatar());
-            List<String> roleList = this.getBaseMapper().getRoleNamesByUserId(user.getId());
+            List<String> roleList = this.getBaseMapper().getRoleNameByUserId(user.getId());
             data.put("roles", roleList);
             return data;
         }

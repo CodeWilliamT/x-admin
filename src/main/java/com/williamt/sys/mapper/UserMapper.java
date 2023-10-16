@@ -1,7 +1,9 @@
 package com.williamt.sys.mapper;
 
-import com.williamt.sys.entity.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.williamt.sys.entity.User;
+
+import java.util.List;
 
 /**
  * <p>
@@ -12,5 +14,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @since 2023-08-16
  */
 public interface UserMapper extends BaseMapper<User> {
-
+    public List<String> getRoleNameByUserId(Integer userId);
 }

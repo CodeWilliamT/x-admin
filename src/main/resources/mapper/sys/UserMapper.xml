@@ -3,9 +3,9 @@
 <mapper namespace="com.williamt.sys.mapper.UserMapper">
     <select id="getRoleNamesByUserId" parameterType="Integer" resultType="String">
         SELECT
-            b.'role_name'
+            b.role_name
         FROM x_user_role a,x_role b
-        WHERE a.`user_id` = #{userId}
-          AND a.`role_id` = b.`role_id`
+        WHERE a.user_id = #{userId}
+          AND a.role_id = b.role_id
     </select>
 </mapper>

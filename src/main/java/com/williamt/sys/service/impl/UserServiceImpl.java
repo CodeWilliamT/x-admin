@@ -60,10 +60,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
             Map<String, Object> data =  new HashMap<>();
             data.put("name",user.getUsername());
             data.put("avatar",user.getAvatar());
-            List<String> roleList = this.getBaseMapper().getRoleNameByUserId(user.getId());
+            List<String> roleList = this.baseMapper.getRoleNamesByUserId(user.getId());
             data.put("roles", roleList);
             return data;
         }
         return null;
+    }
+    @Override
+    public void logout(String token) {
+        redisTemplate.delete(token);
     }
 }
